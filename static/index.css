@@ -9,8 +9,24 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  overflow:hidden;
 }
 
-.flexcontainer {
-   display: flex;
+ul {
+  list-style: none;
+}
+
+li {
+  word-wrap: break-word;
+}
+
+.sent {
+  margin-right: auto;
+  color: blue;
+}
+
+@media (min-width: 700px){
+  body {
+    padding-top: 15vh;
+  }
 }

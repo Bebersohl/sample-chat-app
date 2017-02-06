@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var express = require('express');
 var config = require('./webpack.config');
+var SocketIo = require('socket.io');
 
 var app = express();
 var compiler = webpack(config);
@@ -14,14 +15,25 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.get('/', function(req, res) {
+app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(3000, function(err) {
+const server = app.listen(3000, function(err) {
   if (err) {
     return console.error(err);
   }
 
   console.log('Listening at http://localhost:3000/');
-})
+});
+
+const io = new SocketIo(server);
+
+io.on('connection', function(socket){
+  console.log('a user connected');
+  console.log(socket.id)
+  console.log('CLIENTS', Object.keys(io.sockets.sockets));
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+});
