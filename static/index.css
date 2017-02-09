@@ -20,9 +20,47 @@ li {
   word-wrap: break-word;
 }
 
+.messages-panel {
+  width: 500px;
+  height: 500px;
+  padding: 15px 15px 15px 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.default-panel {
+  flex-basis: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.messages-container {
+  flex-basis: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.message-row {
+  padding-bottom: 5px;
+}
+
+.message {
+  width: 60%;
+  word-wrap: break-word;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
 .sent {
-  margin-right: auto;
-  color: blue;
+  float: right;
+  background-color: #7E57C2;
+}
+
+.recieved {
+  background-color: #039BE5;
 }
 
 @media (min-width: 700px){

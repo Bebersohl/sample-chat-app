@@ -1,25 +1,23 @@
 import React from 'react'
 import NameInputContainer from '../containers/NameInputContainer'
-import UserList from './UserList'
+import UserListContainer from '../containers/UserListContainer'
 import Paper from 'material-ui/Paper'
-import TextField from 'material-ui/TextField'
-import FlatButton from 'material-ui/FlatButton'
+import Message from './Message'
+import MessageInputContainer from '../containers/MessageInputContainer'
+import MessageListContainer from '../containers/MessageListContainer'
 
-const Main = ({ name }) => {
-  if (name) {
-    return <NameInputContainer />
+const Main = ({ name, socket }) => {
+  if (!name) {
+    return <NameInputContainer socket={socket}/>
   }
 
   return(
     <div>
       <Paper style={{display: 'flex'}}>
-        <UserList/> 
-        <div style={{width: 500, minHeight: 500, padding: 15, display: 'flex', flexDirection: 'column'}}>
-          <div>1</div>
-          <div style={{display: 'flex', alignSelf: 'flex-end'}}>
-            <TextField fullWidth={true} id="1"/>
-            <FlatButton backgroundColor="#FF4081" label="Send" style={{marginLeft: 15}}/>
-          </div>
+        <UserListContainer /> 
+        <div className="messages-panel">
+          <MessageListContainer/>
+          <MessageInputContainer socket={socket}/>
         </div>
       </Paper>
     </div>

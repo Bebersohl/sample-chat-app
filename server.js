@@ -15,11 +15,11 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.get('*', function(req, res) {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-const server = app.listen(3000, function(err) {
+const server = app.listen(3000, (err) => {
   if (err) {
     return console.error(err);
   }
@@ -28,12 +28,45 @@ const server = app.listen(3000, function(err) {
 });
 
 const io = new SocketIo(server);
-
-io.on('connection', function(socket){
+const users = {};
+io.on('connection', (socket) => {
+  const usersChange = () => {
+    const userValues = Object.keys(users)
+      .map(key => users[key])
+      .filter(user => user.name.length !== 0)
+      .sort(function(a, b) {
+        const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+        // names must be equal
+        return 0;
+      });
+    io.emit('users change', userValues)
+  }
   console.log('a user connected');
-  console.log(socket.id)
-  console.log('CLIENTS', Object.keys(io.sockets.sockets));
-  socket.on('disconnect', function(){
+  users[socket.id] = {
+    id: socket.id,
+    name: '',
+  }
+  socket.on('set name', (name) => {
+    console.log('set name')
+    users[socket.id].name = name;
+    usersChange();
+    console.log(users)
+  })
+  socket.on('send message', ({to, message}) => {
+    console.log('send message', to, message)
+    socket.broadcast.to(to).emit('forward message', {message, from: socket.id});
+  })
+  socket.on('disconnect', () => {
     console.log('user disconnected');
+    delete users[socket.id]
+    usersChange();
+    console.log(users)
   });
 });
