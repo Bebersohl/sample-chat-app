@@ -23,7 +23,7 @@ li {
 .messages-panel {
   width: 500px;
   height: 500px;
-  padding: 15px 15px 15px 15px;
+  padding: 15px 0px 15px 15px;
   display: flex;
   flex-direction: column;
 }
@@ -44,6 +44,7 @@ li {
 
 .message-row {
   padding-bottom: 5px;
+  padding-right: 15px;
 }
 
 .message {

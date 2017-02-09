@@ -14,11 +14,9 @@ class App extends Component {
     }
     this.state.socket.on('connect', () => {
       this.props.store.dispatch(setId(this.state.socket.id))
-      console.log('connected')
     });
     this.state.socket.on('forward message', (message) => {
       this.props.store.dispatch(recieveMessage(message))
-      console.log('forward message', message)
     });
     this.state.socket.on('users change', (users) => {
       const {selectedUser} = this.props.store.getState()
@@ -26,7 +24,6 @@ class App extends Component {
         this.props.store.dispatch(setSelectedUser(null))
       }
       this.props.store.dispatch(setUsers(users))
-      console.log('user change')
     });
   }
   render() {

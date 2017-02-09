@@ -2,12 +2,13 @@ import { connect } from 'react-redux'
 import UserList from '../components/UserList'
 import { setSelectedUser } from '../actions'
 
-const mapStateToProps = ({name, users, id, selectedUser}) => {
+const mapStateToProps = ({name, users, id, selectedUser, unread}) => {
   return {
     name,
     users,
     id,
     selectedUser,
+    unread,
   }
 }
 

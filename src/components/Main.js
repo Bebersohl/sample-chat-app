@@ -14,7 +14,7 @@ const Main = ({ name, socket, sticker }) => {
 
   return(
     <div>
-      {sticker && <div style={{fontSize: '2em'}}><StickerIcon/> sticker</div>}
+      {sticker && <div style={{fontSize: '3em'}}><StickerIcon color='#FF4081'/> sticker</div>}
       <Paper style={{display: 'flex'}}>
         <UserListContainer /> 
         <div className="messages-panel">

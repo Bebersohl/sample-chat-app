@@ -3,8 +3,9 @@ import {List, ListItem} from 'material-ui/List'
 import Avatar from 'material-ui/Avatar'
 import Subheader from 'material-ui/Subheader'
 import Divider from 'material-ui/Divider'
+import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
 
-const UserList = ({name, users, id, onClick, selectedUser}) => (
+const UserList = ({name, users, id, onClick, selectedUser, unread}) => (
   <List defaultValue={1} style={{backgroundColor: '#00838F', minWidth: 150}}>
     <ListItem
       disabled
@@ -29,6 +30,7 @@ const UserList = ({name, users, id, onClick, selectedUser}) => (
         key={user.id}
         primaryText={user.name}
         leftAvatar={<Avatar src="static/missing_avatar.png"/>}
+        rightIcon={ unread[user.id] > 0 ? <CommunicationChatBubble style={{fill: '#FF4081'}}/> : <span/>}
       />
     )}
   </List>

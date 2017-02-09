@@ -6,6 +6,7 @@ const initialState = {
   selectedUser: null,
   conversations: {},
   sticker: false,
+  unread: {},
 }
 
 const user = (state = initialState, action) => {
@@ -43,6 +44,13 @@ const user = (state = initialState, action) => {
     case RECIEVE_MESSAGE: {
       let conversation;
       let sticker;
+      let unread = 1;
+      if(state.unread.hasOwnProperty(action.from)){
+        unread = state.unread[action.from] += 1
+      }
+      if(action.from === state.selectedUser){
+        unread = 0
+      }
       if(action.message.includes('<sticker>')){
         sticker = true;
       }
@@ -72,6 +80,10 @@ const user = (state = initialState, action) => {
       return {
         ...state,
         sticker: typeof sticker === 'boolean' ? sticker : state.sticker,
+        unread: {
+          ...state.unread,
+          [action.from]: unread,
+        },
         conversations: {
           ...state.conversations,
           [action.from]: conversation
@@ -84,9 +96,20 @@ const user = (state = initialState, action) => {
         id: action.id
       }
     case SET_SELECTED_USER:
-      return {
-        ...state,
-        selectedUser: action.id
+      if (action.id) {
+        return {
+          ...state,
+          unread: {
+            ...state.unread,
+            [action.id]: 0,
+          },
+          selectedUser: action.id
+        }
+      } else {
+        return {
+          ...state,
+          selectedUser: action.id
+        }
       }
     case SET_NAME:
       return {

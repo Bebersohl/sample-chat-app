@@ -12,7 +12,7 @@ class MessageInput extends Component {
   }
   render(){
     return(
-      <form>
+      <form style={{paddingRight: '15px'}}>
         <div style={{display: 'flex'}}>
           <TextField 
             onChange={e => this.setState({ message: e.target.value})}

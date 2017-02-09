@@ -48,25 +48,19 @@ io.on('connection', (socket) => {
       });
     io.emit('users change', userValues)
   }
-  console.log('a user connected');
   users[socket.id] = {
     id: socket.id,
     name: '',
   }
   socket.on('set name', (name) => {
-    console.log('set name')
     users[socket.id].name = name;
     usersChange();
-    console.log(users)
   })
   socket.on('send message', ({to, message}) => {
-    console.log('send message', to, message)
     socket.broadcast.to(to).emit('forward message', {message, from: socket.id, to,});
   })
   socket.on('disconnect', () => {
-    console.log('user disconnected');
     delete users[socket.id]
     usersChange();
-    console.log(users)
   });
 });
