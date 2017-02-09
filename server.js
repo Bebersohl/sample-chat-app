@@ -61,7 +61,7 @@ io.on('connection', (socket) => {
   })
   socket.on('send message', ({to, message}) => {
     console.log('send message', to, message)
-    socket.broadcast.to(to).emit('forward message', {message, from: socket.id});
+    socket.broadcast.to(to).emit('forward message', {message, from: socket.id, to,});
   })
   socket.on('disconnect', () => {
     console.log('user disconnected');

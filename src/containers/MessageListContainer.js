@@ -1,10 +1,11 @@
 import { connect } from 'react-redux'
 import MessageList from '../components/MessageList'
 
-const mapStateToProps = ({selectedUser, users}) => {
+const mapStateToProps = ({selectedUser, users, conversations}) => {
   return {
     selectedUser,
     users,
+    conversations,
   }
 }
 

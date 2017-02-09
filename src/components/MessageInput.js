@@ -25,6 +25,10 @@ class MessageInput extends Component {
             onClick={e => {
               e.preventDefault()
               if(this.state.message){
+                this.props.printMessage({
+                  message: this.state.message,
+                  to: this.props.selectedUser,
+                })
                 this.props.socket.emit('send message', {
                   message: this.state.message,
                   to: this.props.selectedUser,

@@ -4,7 +4,7 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MainContainer from '../containers/MainContainer'
 import io from 'socket.io-client'
-import { setUsers, setId, setSelectedUser } from '../actions'
+import { setUsers, setId, setSelectedUser, recieveMessage } from '../actions'
 
 class App extends Component { 
   constructor(){
@@ -16,8 +16,9 @@ class App extends Component {
       this.props.store.dispatch(setId(this.state.socket.id))
       console.log('connected')
     });
-    this.state.socket.on('forward message', ({from, message}) => {
-      console.log('forward message')
+    this.state.socket.on('forward message', (message) => {
+      this.props.store.dispatch(recieveMessage(message))
+      console.log('forward message', message)
     });
     this.state.socket.on('users change', (users) => {
       const {selectedUser} = this.props.store.getState()

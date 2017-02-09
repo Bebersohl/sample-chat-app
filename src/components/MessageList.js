@@ -1,8 +1,7 @@
 import React from 'react'
 import Message from './Message'
-import ActionHome from 'material-ui/svg-icons/navigation/arrow-back';
 
-const MessageList = ({selectedUser, users}) => {
+const MessageList = ({selectedUser, users, conversations}) => {
   if(!selectedUser){
     return (
       <div className="default-panel">
@@ -10,12 +9,16 @@ const MessageList = ({selectedUser, users}) => {
       </div>
     )
   }
-
+  console.log(conversations[selectedUser], selectedUser, 'here', conversations)
   return (
     <div className="messages-container">
-      <Message text="hello this is some text" from="sent"/>
-      <Message text="hello this is some text" from="recieved"/>
-      <Message text="hello this is some text" from="sent"/>
+      {conversations[selectedUser] && conversations[selectedUser]
+        .map((node) =>
+        <Message 
+          key={node.timestamp}
+          text={node.message} 
+          type={selectedUser === node.from ? "recieved" : "sent"}/>
+      )}
     </div>
   )
 }
