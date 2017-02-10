@@ -19,5 +19,8 @@ Open multiple tabs at `http://localhost:3000/`.
 - Material-UI
 - Socket.IO
 
+## TODO
+- Auto scroll to the bottom of the chat window when sending/receiving new messages
+
 ## Disclaimer
 Dev server only supports up to 5 simultaneous users
