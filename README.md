@@ -18,3 +18,6 @@ Open multiple tabs at `http://localhost:3000/`.
 - Express
 - Material-UI
 - Socket.IO
+
+## Disclaimer
+Dev server only supports up to 5 simultaneous users
