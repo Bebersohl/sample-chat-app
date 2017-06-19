@@ -4,11 +4,9 @@
 
 ## Usage
 ```
-npm install
+npm install && npm start
 ```
-```
-npm start
-```
+
 Open multiple tabs at `http://localhost:3000/`.
 
 ## Tools
